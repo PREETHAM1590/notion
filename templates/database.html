@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ page.title }} – Database</h2>
+<p>This is a simple table attached to this page.  You can add rows and define your
+own columns.  To create a new column, fill in the "New column name" and value fields.</p>
+
+{% if database and database|length %}
+<table class="database-table">
+    <thead>
+        <tr>
+            {% for col in database[0].keys() %}
+                <th>{{ col }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in database %}
+            <tr>
+                {% for val in row.values() %}
+                    <td>{{ val }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No rows yet. Use the form below to add your first row.</p>
+{% endif %}
+
+<h3>Add Row</h3>
+<form action="/page/{{ page_id }}/database/add" method="post">
+    {% if database and database|length %}
+        {% for col in database[0].keys() %}
+            <label>{{ col }}:</label><br>
+            <input type="text" name="{{ col }}"><br>
+        {% endfor %}
+    {% endif %}
+    <label>New column name:</label><br>
+    <input type="text" name="new_col"><br>
+    <label>New column value:</label><br>
+    <input type="text" name="new_val"><br>
+    <button type="submit">Add row</button>
+</form>
+<p><a href="/page/{{ page_id }}">← Back to page</a></p>
+{% endblock %}

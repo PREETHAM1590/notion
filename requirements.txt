@@ -1,0 +1,7 @@
+fastapi==0.115.12
+uvicorn==0.34.2
+jinja2==3.1.6
+requests==2.32.4
+# Additional dependencies for database connectivity and environment variable loading
+python-dotenv==1.1.1  # load environment variables from a `.env` file【88312970861408†L24-L33】
+psycopg2==2.9.10      # PostgreSQL database adapter【635968642049482†L24-L33】

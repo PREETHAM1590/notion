@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="page-detail">
+    <h2>{{ page.title }}</h2>
+    <div class="page-actions">
+        <a href="/page/{{ page_id }}/edit">✏️ Edit</a>
+        <a href="/page/new?parent={{ page_id }}">➕ Add subpage</a>
+        <a href="/page/{{ page_id }}/database">📊 Database</a>
+        <a href="/page/{{ page_id }}/delete" onclick="return confirm('Delete this page and its subpages?');">🗑️ Delete</a>
+    </div>
+    <div class="page-content">
+        {{ rendered | safe }}
+    </div>
+    {% if page.database and page.database|length %}
+        <h3>Database Preview</h3>
+        <table class="database-preview">
+            <thead>
+                <tr>
+                    {% for col in page.database[0].keys() %}
+                        <th>{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in page.database %}
+                    <tr>
+                        {% for val in row.values() %}
+                            <td>{{ val }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><a href="/page/{{ page_id }}/database">View / Edit full table</a></p>
+    {% endif %}
+</article>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Settings</h2>
+<form action="/settings" method="post">
+    <label for="model">Default AI model:</label><br>
+    <select name="model" id="model">
+        {% for m in available_models %}
+            <option value="{{ m }}" {% if m == selected_model %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+    </select><br><br>
+    <button type="submit">Save</button>
+</form>
+<p>Current default model: <strong>{{ selected_model }}</strong>.  This model will be used
+   in the AI chat if no specific model is selected for a message.</p>
+{% endblock %}

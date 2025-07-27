@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>AI Chat Assistant</h2>
+<p>This is a simple AI assistant.  Choose a model and send a message.  The
+assistant will echo your prompt along with the selected model name.  To hook
+this up to a real AI model such as Gemini or GPT, edit the <code>call_ai_model</code>
+function in <code>app.py</code> and provide your API keys.</p>
+
+<div class="chat-history">
+    {% for message in history %}
+        <div class="message {{ message.role }}">
+            <strong>{{ message.role.capitalize() }}:</strong> {{ message.text }}
+        </div>
+    {% endfor %}
+</div>
+
+<form action="/ai" method="post" class="chat-form">
+    <label for="model">Model:</label>
+    <select name="model" id="model">
+        <option value="">Use default ({{ selected_model }})</option>
+        <option value="Gemini">Gemini</option>
+        <option value="GPT-4">GPT‑4</option>
+        <option value="Claude">Claude</option>
+        <option value="Other">Other</option>
+    </select><br><br>
+    <label for="message">Your message:</label><br>
+    <textarea name="message" id="message" rows="4" cols="80" required></textarea><br>
+    <button type="submit">Send</button>
+</form>
+{% endblock %}

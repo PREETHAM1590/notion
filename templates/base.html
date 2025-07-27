@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title if page_title else 'Notion‑style Workspace' }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="{{ theme }}-mode">
+    <header class="topbar">
+        <h1 class="logo">Notion‑style Workspace</h1>
+        <form action="/search" method="get" class="search-form">
+            <input type="text" name="q" placeholder="Search" value="{{ query if query else '' }}">
+            <button type="submit">Search</button>
+        </form>
+        <!-- Theme toggle button -->
+        <form action="/toggle_theme" method="post" class="theme-toggle-form" style="margin-left: 1rem;">
+            <button type="submit" title="Switch theme">
+                {% if theme == 'light' %}🌙 Dark Mode{% else %}☀️ Light Mode{% endif %}
+            </button>
+        </form>
+        <div class="auth-links">
+            {% if user %}
+                <span class="user-email">{{ user.email }}</span>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="container">
+        <nav class="sidebar">
+            <a href="/" class="new-page-link">🏠 Home</a>
+            <a href="/page/new" class="new-page-link">➕ New page</a>
+            <a href="/ai" class="ai-link">🤖 AI Chat</a>
+            <a href="/settings" class="settings-link">⚙️ Settings</a>
+            <ul class="page-tree">
+                {% for node in page_tree %}
+                    {% include 'partials/tree_node.html' with context %}
+                {% endfor %}
+            </ul>
+        </nav>
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</body>
+</html>

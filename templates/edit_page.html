@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Page</h2>
+<form action="/page/{{ page_id }}/edit" method="post">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" value="{{ page.title }}" required><br><br>
+    <label for="content">Content:</label><br>
+    <textarea id="content" name="content" rows="15" cols="80">{{ page.content }}</textarea><br>
+    <button type="submit">Save</button>
+    <a href="/page/{{ page_id }}" class="button-link">Cancel</a>
+</form>
+{% endblock %}

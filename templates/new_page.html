@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Create a new page</h2>
+<form action="/page/new" method="post">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title" required><br>
+    {% if parent %}
+        <input type="hidden" name="parent" value="{{ parent }}">
+    {% endif %}
+    <button type="submit">Create</button>
+</form>
+{% endblock %}
