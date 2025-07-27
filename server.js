@@ -13,8 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, 'static')));
-app.set('view engine', 'ejs');
+app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'templates'));
+app.engine('html', require('ejs').renderFile);
 
 // Data files
 const DATA_FILE = path.join(__dirname, 'pages.json');
